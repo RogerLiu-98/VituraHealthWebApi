@@ -39,7 +39,8 @@ namespace VituraHealthWebApi.Controllers
                 return BadRequest("Invalid prescription data.");
             }
 
-            await _prescriptionService.CreatePrescriptionAsync(createPrescriptionRequest);
+            var prescribedDate = DateTime.UtcNow; // Use current date and time for the prescription
+            await _prescriptionService.CreatePrescriptionAsync(createPrescriptionRequest, prescribedDate);
             return Created();
         }
     }

@@ -18,7 +18,7 @@ public class PrescriptionService : IPrescriptionService
         _logger = logger ?? throw new ArgumentNullException(nameof(logger));
     }
     
-    public async Task<Prescription> CreatePrescriptionAsync(CreatePrescriptionRequest addPrescriptionRequest)
+    public async Task<Prescription> CreatePrescriptionAsync(CreatePrescriptionRequest addPrescriptionRequest, DateTime datePrescribed)
     {
         try
         {
@@ -29,7 +29,7 @@ public class PrescriptionService : IPrescriptionService
                 PatientId = addPrescriptionRequest.PatientId,
                 DrugName = addPrescriptionRequest.DrugName,
                 Dosage = addPrescriptionRequest.Dosage,
-                DatePrescribed = addPrescriptionRequest.DatePrescribed
+                DatePrescribed = datePrescribed
             };
 
             prescriptionEntity = await _prescriptionRepository.AddPrescriptionAsync(prescriptionEntity);

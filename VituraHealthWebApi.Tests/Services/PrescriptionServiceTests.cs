@@ -29,9 +29,10 @@ public class PrescriptionServiceTests
         {
             PatientId = 1,
             DrugName = "Aspirin",
-            Dosage = "100mg",
-            DatePrescribed = new DateTime(2025, 7, 20)
+            Dosage = "100mg"
         };
+
+        var datePrescribed = new DateTime(2025, 7, 20);
 
         var savedEntity = new PrescriptionEntity
         {
@@ -47,7 +48,7 @@ public class PrescriptionServiceTests
             .ReturnsAsync(savedEntity);
 
         // Act
-        var result = await _prescriptionService.CreatePrescriptionAsync(request);
+        var result = await _prescriptionService.CreatePrescriptionAsync(request, datePrescribed);
 
         // Assert
         result.Should().NotBeNull();
@@ -74,9 +75,10 @@ public class PrescriptionServiceTests
         {
             PatientId = 1,
             DrugName = "Aspirin",
-            Dosage = "100mg",
-            DatePrescribed = DateTime.UtcNow
+            Dosage = "100mg"
         };
+
+        var datePrescribed = DateTime.UtcNow;
 
         var expectedException = new InvalidOperationException("Database error");
         _mockPrescriptionRepository
@@ -85,7 +87,7 @@ public class PrescriptionServiceTests
 
         // Act & Assert
         var exception = await Assert.ThrowsAsync<InvalidOperationException>(
-            () => _prescriptionService.CreatePrescriptionAsync(request));
+            () => _prescriptionService.CreatePrescriptionAsync(request, datePrescribed));
 
         exception.Should().Be(expectedException);
     }

@@ -70,11 +70,12 @@ public class ServiceIntegrationTests : IDisposable
         {
             PatientId = 1,
             DrugName = "Tylenol",
-            Dosage = "500mg",
-            DatePrescribed = new DateTime(2025, 7, 22)
+            Dosage = "500mg"
         };
 
-        var createdPrescription = await _prescriptionService.CreatePrescriptionAsync(newPrescriptionRequest);
+        var datePrescribed = new DateTime(2025, 7, 22);
+
+        var createdPrescription = await _prescriptionService.CreatePrescriptionAsync(newPrescriptionRequest, datePrescribed);
 
         // Assert 2 - Verify prescription was created
         createdPrescription.Should().NotBeNull();
@@ -110,30 +111,34 @@ public class ServiceIntegrationTests : IDisposable
             { 
                 PatientId = 1, 
                 DrugName = "Medicine A", 
-                Dosage = "100mg", 
-                DatePrescribed = DateTime.UtcNow 
+                Dosage = "100mg"
             },
             new CreatePrescriptionRequest 
             { 
                 PatientId = 1, 
                 DrugName = "Medicine B", 
-                Dosage = "200mg", 
-                DatePrescribed = DateTime.UtcNow.AddDays(1) 
+                Dosage = "200mg"
             },
             new CreatePrescriptionRequest 
             { 
                 PatientId = 1, 
                 DrugName = "Medicine C", 
-                Dosage = "300mg", 
-                DatePrescribed = DateTime.UtcNow.AddDays(2) 
+                Dosage = "300mg"
             }
+        };
+
+        var datePrescribedList = new[]
+        {
+            DateTime.UtcNow,
+            DateTime.UtcNow.AddDays(1),
+            DateTime.UtcNow.AddDays(2)
         };
 
         // Act
         var createdPrescriptions = new List<Prescription>();
-        foreach (var request in prescriptionRequests)
+        for (int i = 0; i < prescriptionRequests.Length; i++)
         {
-            var prescription = await _prescriptionService.CreatePrescriptionAsync(request);
+            var prescription = await _prescriptionService.CreatePrescriptionAsync(prescriptionRequests[i], datePrescribedList[i]);
             createdPrescriptions.Add(prescription);
         }
 

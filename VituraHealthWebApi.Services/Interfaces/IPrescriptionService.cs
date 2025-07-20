@@ -6,5 +6,5 @@ namespace VituraHealthWebApi.Services.Interfaces;
 public interface IPrescriptionService
 {
     Task<IList<Prescription>> GetAllPrescriptionsAsync();
-    Task<Prescription> CreatePrescriptionAsync(CreatePrescriptionRequest prescription);
+    Task<Prescription> CreatePrescriptionAsync(CreatePrescriptionRequest prescription, DateTime datePrescribed);
 }

@@ -13,7 +13,4 @@ public class CreatePrescriptionRequest
 
     [JsonPropertyName("dosage")]
     public required string Dosage { get; set; }
-
-    [JsonPropertyName("datePrescribed")]
-    public required DateTime DatePrescribed { get; set; }
 }

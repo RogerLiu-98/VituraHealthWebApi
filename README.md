@@ -60,8 +60,7 @@ POST /api/prescriptions
 {
     "patientId": 1,
     "drugName": "Aspirin",
-    "dosage": "100mg daily",
-    "datePrescribed": "2025-07-20"
+    "dosage": "100mg daily"
 }
 ```
 
